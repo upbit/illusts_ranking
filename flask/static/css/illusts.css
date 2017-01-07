@@ -1,0 +1,40 @@
+body {
+  font-family: -apple-system,"Droid Sans",Arial,sans-serif;
+  font-size: 14px;
+}
+
+#content {
+  padding: 8px;
+}
+#illusts_canvas {
+}
+
+.illust_wrap {
+  width: 100%;
+}
+.illust_img {
+  padding: 4px 4px 1px 4px;
+  vertical-align: middle;
+  display: table-cell;
+}
+.illust_meta {
+  vertical-align: middle;
+  display: table-cell;
+  padding-left: 1em;
+}
+
+.illust_img a:hover {
+  background-color: rgba(239, 187, 36, 0.8);
+}
+
+.wrap_odd {
+  background-color: #FEDFE1;
+}
+.wrap_even {
+  background-color: #DAC9A6;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 120px;
+}
