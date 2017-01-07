@@ -2,7 +2,7 @@
 
 {% block meta %}
 <title>{{ title }}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/illusts.css') }}?t={{ t }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/illusts.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -20,7 +20,7 @@
     </span>
     <span class=illust_meta>
       id={{ illust.id }} {{ illust.title }}
-      , {{ illust.total_bookmarks }}/{{ illust.total_view }} bv_rate={{ "%.4f%%" | format( illust.bookmark_rate*100 ) }}
+      , {{ "(b=%d, v=%d, c=%d)" | format(illust.total_bookmarks, illust.total_view, illust.total_comments) }} bv_rate={{ "%.2f%%" | format( illust.bookmark_rate*100 ) }}
       <br>
       {{ illust.tags | join(";") }}
     </span>
