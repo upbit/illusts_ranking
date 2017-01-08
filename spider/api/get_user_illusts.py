@@ -6,9 +6,9 @@ from pixivpy3 import *
 
 from to_timestamp import to_timestamp
 
-def get_user_illusts(aapi, user_id, last_timestamp=0, req_auth=False):
+def get_user_illusts(aapi, user_id, last_timestamp=0, type='illust', req_auth=False):
     illusts = []
-    json_result = aapi.user_illusts(user_id, req_auth=req_auth)
+    json_result = aapi.user_illusts(user_id, type=type, req_auth=req_auth)
     while len(json_result.illusts) > 0:
         illusts.extend(json_result.illusts)
 
@@ -27,7 +27,7 @@ def get_user_illusts(aapi, user_id, last_timestamp=0, req_auth=False):
 
 def test():
     aapi = AppPixivAPI()
-    user_illusts = get_user_illusts(aapi, 660788, 1460942026, False)
+    user_illusts = get_user_illusts(aapi, 660788, 1460942026, req_auth=False)
     for illust in user_illusts:
         print illust.id, illust.title
 
