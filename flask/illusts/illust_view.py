@@ -39,7 +39,7 @@ def rankings(sort_by, offset, size):
 
     # get illusts from mongodb
     illusts = []
-    for raw_illust in list(illust_helper.collection.find().sort(sort_by, 1).skip(offset).limit(size)):
+    for raw_illust in list(illust_helper.collection.find().sort(sort_by, -1).skip(offset).limit(size)):
         illust = JsonDict(raw_illust)
         bookmark_rate = float(illust.total_bookmarks) / illust.total_view if illust.total_view > 0 else 0.0
         illust['bookmark_rate'] = bookmark_rate
