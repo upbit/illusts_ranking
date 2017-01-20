@@ -47,6 +47,9 @@ class IllustHelper():
         obj_illust = self._format_illust(illust)
         return self.collection.replace_one({'_id': obj_illust['_id']}, obj_illust, upsert=upsert)
 
+    def get(self, illust_id):
+        return [i for i in self.collection.find({"id": illust_id})][0]
+
 def test():
     pass
 

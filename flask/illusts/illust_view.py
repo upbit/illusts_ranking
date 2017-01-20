@@ -28,7 +28,8 @@ def to_utf8(val):
 
 @illust_view.route('/', methods=['GET'])
 def home_page():
-    return redirect(url_for('.rankings', sort_by='total_bookmarks'))
+    # return redirect(url_for('.rankings', sort_by='total_bookmarks'))
+    return redirect(url_for('.sorted_view'))
 
 # sort_by: total_bookmarks, total_view
 @illust_view.route('/<sort_by>', methods=['GET'], defaults={ 'offset': 0, 'size': 30 })
@@ -48,3 +49,19 @@ def rankings(sort_by, offset, size):
     title = 'Illusts排行榜 - %s' % to_utf8(sort_by)
     content = 'SortBy: %s (%d-%d)' % (sort_by, offset+1, offset+size)
     return render_template('illusts.html', title=title.decode('utf-8'), content=content.decode('utf-8'), illusts=illusts)
+
+@illust_view.route('/viewer', methods=['GET'])
+def sorted_view():
+    illust_helper = IllustHelper()
+    sorted_helper = IllustHelper(collection_name='sorted_view')
+
+    illusts = []
+    for data in list(sorted_helper.collection.find().sort([['sort', -1]])):
+        illust = illust_helper.get(data['_id'])
+        illust['sort'] = data['sort']
+        illusts.append(illust)
+
+    title = 'Illusts排行榜'
+    content = 'Read %d illusts from "sorted_view"' % (len(illusts))
+    return render_template('viewer.html', title=title.decode('utf-8'), content=content.decode('utf-8'), illusts=illusts)
+
