@@ -26,9 +26,14 @@ def fetch_ranking(aapi, mode, date, max_page=2):
 
     json_result = aapi.illust_ranking(mode=mode, date=date, req_auth=True)
     last_page = max_page
+
+    new = 0
+    total = 0
     while len(json_result.illusts) > 0:
         for illust in json_result.illusts:
-            illust_helper.update(illust)
+            is_update = illust_helper.update(illust).modified_count
+            new += 1 if (is_update == 0) else 0
+            total += 1
 
         time.sleep(0.2)
         next_qs = aapi.parse_qs(json_result.next_url)
@@ -36,6 +41,8 @@ def fetch_ranking(aapi, mode, date, max_page=2):
         last_page -= 1
         if last_page <= 0: break
         json_result = aapi.illust_ranking(req_auth=True, **next_qs)
+
+    print ">> Get %d/%d new illusts" % (new, total)
 
 def main():
     aapi = AppPixivAPI()
